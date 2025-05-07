@@ -96,3 +96,43 @@ console.log(`радиус: ${circle.radius}`)
 console.log(`диаметр: ${circle.diametr}`)
 console.log(`Площадь: ${circle.area().toFixed(2)}`)
 console.log(`длина окружности: ${circle.circumference().toFixed(2)}`)
+
+
+// 3 задание
+
+class CssClass {
+    constructor(name, styles) {
+        this.name = name
+        this.styles = {}
+        for (let key in styles) {
+            if (this.checkKey(key)) {
+                this.styles[key] = styles[key]
+            }
+        }
+    }
+    checkKey(key) {
+        const style = document.body.style
+        return key in style
+    }
+    setStyle(key, value) {
+        if (!this.checkKey(key)) {
+            return
+        }
+        this.styles[key] = value
+    }
+    unsetStyle(key){
+        delete this.styles[key]
+    }
+    getStyle(key){
+        return this.styles[key]
+    }
+    getCss(){
+        return`.${this.name}${JSON.stringify(this.styles)
+            .replace(/\,/g,"; \n")
+            .replace(/"/g, "")}`
+    }
+}
+const main = new CssClass('main')
+main.setStyle('font-size', '2em')
+main.setStyle('color')
+console.log(main.getCss())
